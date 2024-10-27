@@ -21,7 +21,7 @@ def call(PipelineConfiguration config) {
             """
         }
 
-        stage ('Cleanup')
+        stage ('Clean Workspace')
         {
             cleanWs()
         }
@@ -34,14 +34,10 @@ def call(PipelineConfiguration config) {
         stage('Build')
         {
             // Specify your solution or project file
-            def solutionFile = 'JenkinsSandbox/JenkinsSandbox.vcxproj'
-            def vsDevCmdPath = '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat"'
+            def solutionFile = 'JenkinsSandbox.sln'
 
             try {
-                bat """
-                    call ${vsDevCmdPath}
-                    msbuild ${solutionFile} /p:Configuration=Release /p:Platform=\"x64\"
-                """
+                bat "\"${tool 'msbuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build /verbosity:detailed"
             } catch (Exception e) {
                 echo "Build failed: ${e}"
                 currentBuild.result = 'FAILURE'
