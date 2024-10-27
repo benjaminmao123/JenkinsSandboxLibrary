@@ -15,6 +15,15 @@ def call(PipelineConfiguration config) {
                 folder('${folderName}') {
                     description('Folder for ${folderName} branch jobs')
                 }
+                
+                pipelineJob('${folderName}/${jobName}') {
+                definition {
+                    cps {
+                        script(readFileFromWorkspace('Jenkinsfile'))
+                        sandbox()
+                    }
+                }
+            }
             """
         }
 
