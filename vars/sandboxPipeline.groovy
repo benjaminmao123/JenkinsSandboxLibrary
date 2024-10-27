@@ -15,14 +15,8 @@ def call(PipelineConfiguration config) {
                     description("Folder for ${folderName} jobs")
                 }
 
-                pipelineJob("${folderName}/${jobName}") {
+                job("${folderName}/${jobName}") {
                     description("A dynamically placed job based on the branch or environment")
-                    definition {
-                        cps {
-                            script(readFileFromWorkspace('Jenkinsfile'))
-                            sandbox()
-                        }
-                    }
                 }
             """
         }
