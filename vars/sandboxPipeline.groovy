@@ -21,6 +21,11 @@ def call(PipelineConfiguration config) {
             """
         }
 
+        stage ('Checkout')
+        {
+            checkout scm
+        }
+
         stage('Build')
         {
             // Specify your solution or project file
