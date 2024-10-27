@@ -25,7 +25,7 @@ def call(PipelineConfiguration config) {
         {
             // Specify your solution or project file
             def solutionFile = 'JenkinsSandbox.sln'
-            def msBuildTool = tool name: 'MSBuild 2022', type: 'msbuild' // Specify your MSBuild configuration name
+            def msBuildTool = tool name: 'msbuild', type: 'MSBuild 2022' // Specify your MSBuild configuration name
 
             try {
                 bat "\"${msBuildTool}\" ${solutionFile} /p:Configuration=Release /p:Platform=\"Any CPU\" /t:Build /verbosity:detailed"
