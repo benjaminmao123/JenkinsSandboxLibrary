@@ -28,7 +28,7 @@ def call(PipelineConfiguration config) {
             def msBuildTool = tool name: 'msbuild', type: 'MSBuild' // Specify your MSBuild configuration name
 
             try {
-                bat "\"${msBuildTool}\" ${solutionFile} /p:Configuration=Release /p:Platform=\"Any CPU\" /t:Build"
+                bat "\"${msBuildTool}\" ${solutionFile} /p:Configuration=Release /p:Platform=\"Any CPU\" /t:Build /verbosity:detailed"
             } catch (Exception e) {
                 echo "Build failed: ${e}"
                 currentBuild.result = 'FAILURE'
