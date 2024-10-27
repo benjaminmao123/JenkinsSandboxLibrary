@@ -4,19 +4,18 @@ def call(PipelineConfiguration config) {
     node
     {
         def folderName = determineFolderName(env.BRANCH_NAME)
-        def jobName = env.JOB_BASE_NAME
+        def jobName = env.JOB_NAME
 
         stage('Organize Job by Folder')
         {
             echo "Organizing job '${jobName}' in folder '${folderName}'"
 
-            // Use Job DSL to create folder and job
-            jobDsl scriptText: """
-                folder('${folderName}') {
-                    description('Folder for ${folderName} branch jobs')
-                }
-                
-                pipelineJob('${folderName}/${jobName}') {
+            folder(folderName) {
+                description("Folder for ${folderName} jobs")
+            }
+
+            job("${folderName}/${jobName}") {
+                description("A dynamically placed job based on the branch or environment")
                 definition {
                     cps {
                         script(readFileFromWorkspace('Jenkinsfile'))
@@ -24,7 +23,6 @@ def call(PipelineConfiguration config) {
                     }
                 }
             }
-            """
         }
 
         stage('Build')
