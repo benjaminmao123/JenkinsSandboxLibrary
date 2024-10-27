@@ -1,6 +1,6 @@
 import org.foo.*
 
-def call(PipelineConfiguration config) {
+def call() {
     node
     {
         stage('Build')
