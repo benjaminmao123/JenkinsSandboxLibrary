@@ -1,6 +1,13 @@
 import org.foo.*
+import hudson.model.ParametersDefinitionProperty
+import hudson.model.StringParameterDefinition
+import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
+    properties([
+        priority(2)
+    ])
+
     node
     {
         def folderName = determineFolderName(env.BRANCH_NAME)
@@ -56,4 +63,10 @@ def determineFolderName(branchName) {
     }
 
     return 'custom'
+}
+
+def priority(int level) {
+  properties([
+    [$class: 'PriorityJobProperty', priority: level]
+  ])
 }
