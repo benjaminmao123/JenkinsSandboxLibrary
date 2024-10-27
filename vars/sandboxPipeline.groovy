@@ -5,7 +5,7 @@ import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
     properties([
-        priority(2)
+        priority(1)
     ])
 
     node
