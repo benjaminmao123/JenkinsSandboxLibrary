@@ -21,6 +21,11 @@ def call(PipelineConfiguration config) {
             """
         }
 
+        stage ('Cleanup')
+        {
+            cleanWs()
+        }
+
         stage ('Checkout')
         {
             checkout scm
