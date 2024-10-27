@@ -25,9 +25,10 @@ def call(PipelineConfiguration config) {
         {
             // Specify your solution or project file
             def solutionFile = 'JenkinsSandbox.sln'
+            def msBuildTool = tool name: 'MSBuild 2022', type: 'MSBuild' // Specify your MSBuild configuration name
 
             try {
-                bat "\"${tool MSBuild 2022}\" ${solutionFile} /p:Configuration=Release /p:Platform=\"Any CPU\" /t:Build /verbosity:detailed"
+                bat "\"${msBuildTool}\" ${solutionFile} /p:Configuration=Release /p:Platform=\"Any CPU\" /t:Build /verbosity:detailed"
             } catch (Exception e) {
                 echo "Build failed: ${e}"
                 currentBuild.result = 'FAILURE'
