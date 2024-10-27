@@ -28,9 +28,9 @@ def call(PipelineConfiguration config) {
 // Function to determine folder name based on branch name
 def determineFolderName(branchName) {
     if (branchName == 'main') {
-        return 'main'
+        return 'MainJobs'
     } else if (branchName == 'develop') {
-        return 'develop'
+        return 'DevelopJobs'
     }
 
     return 'custom'
