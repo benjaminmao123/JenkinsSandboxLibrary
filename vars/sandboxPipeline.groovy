@@ -4,7 +4,7 @@ def call(PipelineConfiguration config) {
     node
     {
         def folderName = determineFolderName(env.BRANCH_NAME)
-        def jobName = env.JOB_NAME
+        def jobName = env.JOB_BASE_NAME
 
         stage('Organize Job by Folder')
         {
