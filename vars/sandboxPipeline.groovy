@@ -30,9 +30,13 @@ def call(PipelineConfiguration config) {
         {
             // Specify your solution or project file
             def solutionFile = 'JenkinsSandbox.sln'
+            def vsDevCmdPath = 'C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat'
 
             try {
-                bat "\"${tool 'msbuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build /verbosity:detailed"
+                bat """
+                    call ${vsDevCmdPath}
+                    msbuild ${solutionFile} /p:Configuration=Release /p:Platform=\"x64\"
+                """
             } catch (Exception e) {
                 echo "Build failed: ${e}"
                 currentBuild.result = 'FAILURE'
