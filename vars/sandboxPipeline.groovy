@@ -10,23 +10,23 @@ def call(PipelineConfiguration config) {
 
     node
     {
-        def folderName = determineFolderName(env.BRANCH_NAME)
-        def jobName = env.JOB_BASE_NAME
+        // def folderName = determineFolderName(env.BRANCH_NAME)
+        // def jobName = env.JOB_BASE_NAME
 
-        stage('Organize Job by Folder')
-        {
-            echo "Organizing job '${jobName}' in folder '${folderName}'"
+        // stage('Organize Job by Folder')
+        // {
+        //     echo "Organizing job '${jobName}' in folder '${folderName}'"
 
-            jobDsl scriptText: """
-                folder("${folderName}") {
-                    description("Folder for ${folderName} jobs")
-                }
+        //     jobDsl scriptText: """
+        //         folder("${folderName}") {
+        //             description("Folder for ${folderName} jobs")
+        //         }
 
-                job("${folderName}/${jobName}") {
-                    description("A dynamically placed job based on the branch or environment")
-                }
-            """
-        }
+        //         job("${folderName}/${jobName}") {
+        //             description("A dynamically placed job based on the branch or environment")
+        //         }
+        //     """
+        // }
 
         stage ('Clean Workspace')
         {
