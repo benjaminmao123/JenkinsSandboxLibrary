@@ -34,7 +34,7 @@ def call(PipelineConfiguration config) {
         stage('Build')
         {
             // Specify your solution or project file
-            def solutionFile = 'JenkinsSandbox.sln'
+            def solutionFile = 'JenkinsSandbox/JenkinsSandbox.vcxproj'
             def vsDevCmdPath = '"C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\Common7\\Tools\\VsDevCmd.bat"'
 
             try {
