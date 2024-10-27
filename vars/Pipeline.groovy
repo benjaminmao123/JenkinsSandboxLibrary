@@ -1,4 +1,4 @@
-import com.org.foo.*
+import org.foo.*
 
 def call(PipelineConfiguration config) {
     node
