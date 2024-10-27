@@ -10,7 +10,7 @@ def call(PipelineConfiguration config) {
         {
             echo "Organizing job '${jobName}' in folder '${folderName}'"
 
-            folder(folderName) {
+            folder("${folderName}") {
                 description("Folder for ${folderName} jobs")
             }
 
