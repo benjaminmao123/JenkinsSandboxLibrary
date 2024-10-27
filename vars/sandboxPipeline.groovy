@@ -10,19 +10,21 @@ def call(PipelineConfiguration config) {
         {
             echo "Organizing job '${jobName}' in folder '${folderName}'"
 
-            folder("${folderName}") {
-                description("Folder for ${folderName} jobs")
-            }
+            jobDsl scriptText: """
+                folder("${folderName}") {
+                    description("Folder for ${folderName} jobs")
+                }
 
-            job("${folderName}/${jobName}") {
-                description("A dynamically placed job based on the branch or environment")
-                definition {
-                    cps {
-                        script(readFileFromWorkspace('Jenkinsfile'))
-                        sandbox()
+                pipelineJob("${folderName}/${jobName}") {
+                    description("A dynamically placed job based on the branch or environment")
+                    definition {
+                        cps {
+                            script(readFileFromWorkspace('Jenkinsfile'))
+                            sandbox()
+                        }
                     }
                 }
-            }
+            """
         }
 
         stage('Build')
