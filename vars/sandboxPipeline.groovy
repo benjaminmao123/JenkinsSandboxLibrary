@@ -6,7 +6,7 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        def jobPriority = determinePriority(env.BRANCH_NAME)
+        int jobPriority = determinePriority(env.BRANCH_NAME)
 
         stage ('Prepare Job')
         {
@@ -15,7 +15,7 @@ def call(PipelineConfiguration config) {
             jobDsl scriptText: """
                 multibranchPipelineJob('${env.JOB_NAME}') {
                     properties {
-                        priority('${jobPriority}')
+                        priority(${jobPriority})
                     }
                 }
             """
@@ -58,7 +58,7 @@ def determineFolderName(branchName) {
     return 'custom'
 }
 
-def determinePriority(String branchName) {
+int determinePriority(String branchName) {
     if (branchName == 'main') {
         return 1
     } else if (branchName == 'develop') {
