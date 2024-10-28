@@ -17,7 +17,7 @@ def call(PipelineConfiguration config) {
                 $class: 'BuildBlockerProperty',
                 useBuildBlocker: useBuildBlocker,
                 blockLevel: 'GLOBAL',
-                blockingJobs: blockingJobs
+                blockingJobs: blockingJobs,
                 scanQueueFor: 'ALL'
             ]
         ])
