@@ -6,20 +6,24 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        String blockingBranchName = getBlockingBranches(env.BRANCH_NAME)
-        boolean useBuildBlocker = blockingBranchName != ''
-        String blockingJobs = env.JOB_NAME.split('/')[0] + '/' + blockingBranchName
-
-        echo "Blocking jobs: ${blockingJobs}"
-
         properties([
-            [
-                $class: 'BuildBlockerProperty',
-                useBuildBlocker: useBuildBlocker,
-                blockLevel: 'GLOBAL',
-                blockingJobs: blockingJobs,
-                scanQueueFor: 'ALL'
-            ]
+            disableConcurrentBuilds(), // "Do not allow concurrent builds"
+            parameters([  // "This project is parameterized"
+                // The job already had this parameter, to distinguish runs.
+                string(
+                    name: 'ItemId',
+                    trim: true,
+                    description: 'The ID of the item to be processed.',
+                ),
+                // We add this parameter to give higher-priority runs the
+                // ability to start sooner, ahead of lower-priority runs.
+                choice(
+                    name: 'BuildPriority',
+                    choices: ['5', '4', '3', '2', '1'],
+                    description: 'Lower number means higher priority. ' +
+                                'Runs with equal priority will execute in the order they were queued.',
+                ),
+            ]),
         ])
 
         stage ('Clean Workspace')
