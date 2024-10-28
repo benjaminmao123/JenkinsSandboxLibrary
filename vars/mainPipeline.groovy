@@ -6,9 +6,15 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        // properties([
-        //     disableConcurrentBuilds()
-        // ])
+        properties([
+            disableConcurrentBuilds()
+            parameters([
+                choice(
+                    name: 'BuildPriority',
+                    choices: ['5', '4', '3', '2', '1'],
+                    description: 'Lower number means higher priority.')
+            ])
+        ])
 
         stage ('Clean Workspace')
         {
@@ -37,12 +43,4 @@ def call(PipelineConfiguration config) {
             sleep 30
         }
     }
-}
-
-String getBlockingBranches(String branchName) {
-    if (branchName == 'develop') {
-        return 'main'
-    }
-
-    return ''
 }
