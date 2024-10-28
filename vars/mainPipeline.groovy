@@ -6,7 +6,7 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        options([
+        properties([
             disableConcurrentBuilds()
         ])
 
