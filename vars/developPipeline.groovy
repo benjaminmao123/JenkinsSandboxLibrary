@@ -6,14 +6,14 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        properties([
-            [$class: 'hudson.plugins.buildblocker.BuildBlockerProperty', 
-                useBuildBlocker: true, 
-                blockingJobs: 'Sandbox/main', 
-                blockLevel: 'GLOBAL'
-            ],
-            disableConcurrentBuilds()
-        ])
+        // properties([
+        //     [$class: 'hudson.plugins.buildblocker.BuildBlockerProperty', 
+        //         useBuildBlocker: true, 
+        //         blockingJobs: 'Sandbox/main', 
+        //         blockLevel: 'GLOBAL'
+        //     ],
+        //     disableConcurrentBuilds()
+        // ])
 
         stage ('Clean Workspace')
         {

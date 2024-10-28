@@ -6,9 +6,9 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        properties([
-            disableConcurrentBuilds()
-        ])
+        // properties([
+        //     disableConcurrentBuilds()
+        // ])
 
         stage ('Clean Workspace')
         {
