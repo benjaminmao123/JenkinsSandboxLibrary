@@ -6,6 +6,10 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
+        options([
+            disableConcurrentBuilds()
+        ])
+
         properties([
             [$class: 'hudson.plugins.buildblocker.BuildBlockerProperty', 
                 useBuildBlocker: true, 
