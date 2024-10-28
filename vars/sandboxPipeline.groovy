@@ -4,29 +4,22 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
-    properties([
-        priority(1)
-    ])
-
     node
     {
-        // def folderName = determineFolderName(env.BRANCH_NAME)
-        // def jobName = env.JOB_BASE_NAME
+        def jobPriority = determinePriority(env.BRANCH_NAME)
 
-        // stage('Organize Job by Folder')
-        // {
-        //     echo "Organizing job '${jobName}' in folder '${folderName}'"
+        stage ('Prepare Job')
+        {
+            echo "Prepare job: '${env.JOB_NAME}' with priority: ${jobPriority}"
 
-        //     jobDsl scriptText: """
-        //         folder("${folderName}") {
-        //             description("Folder for ${folderName} jobs")
-        //         }
-
-        //         job("${folderName}/${jobName}") {
-        //             description("A dynamically placed job based on the branch or environment")
-        //         }
-        //     """
-        // }
+            jobDsl scriptText: """
+                multibranchPipelineJob('${env.JOB_NAME}') {
+                    properties {
+                        priority('${jobPriority}')
+                    }
+                }
+            """
+        }
 
         stage ('Clean Workspace')
         {
@@ -38,7 +31,7 @@ def call(PipelineConfiguration config) {
             checkout scm
         }
 
-        stage('Build')
+        stage ('Build')
         {
             // Specify your solution or project file
             def solutionFile = 'JenkinsSandbox.sln'
@@ -65,8 +58,12 @@ def determineFolderName(branchName) {
     return 'custom'
 }
 
-def priority(int level) {
-  properties([
-    [$class: 'PriorityJobProperty', priority: level]
-  ])
+def determinePriority(String branchName) {
+    if (branchName == 'main') {
+        return 1
+    } else if (branchName == 'develop') {
+        return 2
+    }
+
+    return 3
 }
