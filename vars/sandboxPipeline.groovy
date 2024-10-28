@@ -4,14 +4,23 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
-    int jobPriority = determinePriority(env.BRANCH_NAME)
-
-    properties([
-        priority(jobPriority),
-    ])
-    
     node
     {
+        String blockingBranchName = getBlockingBranches(env.BRANCH_NAME)
+        boolean useBuildBlocker = blockingBranchName != ''
+        String blockingJobs = env.JOB_NAME + '-' + determineFolderName(blockingBranchName)
+
+        echo "Blocking jobs: ${blockingJobs}"
+
+        properties([
+            [
+                $class: 'BuildBlockerProperty',
+                useBuildBlocker: useBuildBlocker,
+                blockLevel: 'GLOBAL',
+                blockingJobs: blockingJobs
+            ]
+        ])
+
         stage ('Clean Workspace')
         {
             cleanWs()
@@ -49,12 +58,10 @@ def determineFolderName(branchName) {
     return 'custom'
 }
 
-int determinePriority(String branchName) {
-    if (branchName == 'main') {
-        return 1
-    } else if (branchName == 'develop') {
-        return 2
+String getBlockingBranches(String branchName) {
+    if (branchName == 'develop') {
+        return 'main'
     }
 
-    return 3
+    return ''
 }
