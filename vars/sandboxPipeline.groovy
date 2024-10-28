@@ -18,6 +18,7 @@ def call(PipelineConfiguration config) {
                 useBuildBlocker: useBuildBlocker,
                 blockLevel: 'GLOBAL',
                 blockingJobs: blockingJobs
+                scanQueueFor: 'ALL'
             ]
         ])
 
