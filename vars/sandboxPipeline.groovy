@@ -6,14 +6,11 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        stage ('Prepare Job')
-        {
-            int jobPriority = determinePriority(env.BRANCH_NAME)
+        int jobPriority = determinePriority(env.BRANCH_NAME)
 
-            properties([
-                priority(jobPriority),
-            ])
-        }
+        properties([
+            priority(jobPriority),
+        ])
 
         stage ('Clean Workspace')
         {
