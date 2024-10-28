@@ -7,11 +7,11 @@ def call(PipelineConfiguration config) {
     node
     {
         properties([
-            buildBlocker {
-                useBuildBlocker(true)
-                blockingJobs('Sandbox/main')
-                blockLevel('GLOBAL')
-            }
+            [$class: 'hudson.plugins.buildblocker.BuildBlockerProperty', 
+                useBuildBlocker: true, 
+                blockingJobs: 'Sandbox/main', 
+                blockLevel: 'GLOBAL'
+            ]
         ])
 
         stage ('Clean Workspace')
