@@ -45,7 +45,7 @@ def call(PipelineConfiguration config) {
             // }
             
             // introduce artificial delay
-            bat 'timeout 120'
+            sleep 120
         }
     }
 }
