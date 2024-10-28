@@ -13,7 +13,7 @@ def call(PipelineConfiguration config) {
             echo "Prepare job: '${env.JOB_NAME}' with priority: ${jobPriority}"
 
             jobDsl scriptText: """
-                multibranchPipelineJob('${env.JOB_NAME}') {
+                job('${env.JOB_NAME}') {
                     properties {
                         priority(${jobPriority})
                     }
