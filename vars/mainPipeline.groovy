@@ -7,7 +7,7 @@ def call(PipelineConfiguration config) {
     node
     {
         properties([
-            disableConcurrentBuilds()
+            disableConcurrentBuilds(),
             parameters([
                 choice(
                     name: 'BuildPriority',
