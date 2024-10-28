@@ -34,15 +34,18 @@ def call(PipelineConfiguration config) {
         stage ('Build')
         {
             // Specify your solution or project file
-            def solutionFile = 'JenkinsSandbox.sln'
+            // def solutionFile = 'JenkinsSandbox.sln'
 
-            try {
-                bat "\"${tool 'MSBuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build"
-            } catch (Exception e) {
-                echo "Build failed: ${e}"
-                currentBuild.result = 'FAILURE'
-                error "MSBuild failed"
-            }
+            // try {
+            //     bat "\"${tool 'MSBuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build"
+            // } catch (Exception e) {
+            //     echo "Build failed: ${e}"
+            //     currentBuild.result = 'FAILURE'
+            //     error "MSBuild failed"
+            // }
+            
+            // introduce artificial delay
+            bat 'timeout 120'
         }
     }
 }
