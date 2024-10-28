@@ -6,14 +6,13 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        properties([])
-        // properties([
-        //     buildBlocker {
-        //         useBuildBlocker(true)
-        //         blockingJobs('Sandbox/main')
-        //         blockLevel('GLOBAL')
-        //     }
-        // ])
+        properties([
+            buildBlocker {
+                useBuildBlocker(true)
+                blockingJobs('Sandbox/main')
+                blockLevel('GLOBAL')
+            }
+        ])
 
         stage ('Clean Workspace')
         {

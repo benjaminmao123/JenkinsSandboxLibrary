@@ -6,8 +6,6 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
-        properties([])
-
         stage ('Clean Workspace')
         {
             cleanWs()
