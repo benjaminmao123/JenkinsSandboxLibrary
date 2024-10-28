@@ -11,9 +11,7 @@ def call(PipelineConfiguration config) {
             int jobPriority = determinePriority(env.BRANCH_NAME)
 
             properties([
-                parameters([
-                    priority(${jobPriority}),
-                ])
+                priority(jobPriority),
             ])
         }
 
