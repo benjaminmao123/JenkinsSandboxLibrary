@@ -8,7 +8,7 @@ def call(PipelineConfiguration config) {
     {
         String blockingBranchName = getBlockingBranches(env.BRANCH_NAME)
         boolean useBuildBlocker = blockingBranchName != ''
-        String blockingJobs = env.JOB_NAME + '-' + determineFolderName(blockingBranchName)
+        String blockingJobs = env.JOB_NAME + '-' + blockingBranchName
 
         echo "Blocking jobs: ${blockingJobs}"
 
@@ -37,7 +37,7 @@ def call(PipelineConfiguration config) {
             def solutionFile = 'JenkinsSandbox.sln'
 
             try {
-                bat "\"${tool 'msbuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build"
+                bat "\"${tool 'MSBuild'}\" ${solutionFile} /p:Configuration=Release /p:Platform=x64 /t:Build"
             } catch (Exception e) {
                 echo "Build failed: ${e}"
                 currentBuild.result = 'FAILURE'
@@ -45,17 +45,6 @@ def call(PipelineConfiguration config) {
             }
         }
     }
-}
-
-// Function to determine folder name based on branch name
-def determineFolderName(branchName) {
-    if (branchName == 'main') {
-        return 'MainJobs'
-    } else if (branchName == 'develop') {
-        return 'DevelopJobs'
-    }
-
-    return 'custom'
 }
 
 String getBlockingBranches(String branchName) {
