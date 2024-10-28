@@ -8,7 +8,7 @@ def call(PipelineConfiguration config) {
     {
         String blockingBranchName = getBlockingBranches(env.BRANCH_NAME)
         boolean useBuildBlocker = blockingBranchName != ''
-        String blockingJobs = env.JOB_NAME.split('/')[0] + blockingBranchName
+        String blockingJobs = env.JOB_NAME.split('/')[0] + '/' + blockingBranchName
 
         echo "Blocking jobs: ${blockingJobs}"
 
