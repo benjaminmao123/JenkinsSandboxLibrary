@@ -4,14 +4,14 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
+    int jobPriority = determinePriority(env.BRANCH_NAME)
+
+    properties([
+        priority(jobPriority),
+    ])
+    
     node
     {
-        int jobPriority = determinePriority(env.BRANCH_NAME)
-
-        properties([
-            priority(jobPriority),
-        ])
-
         stage ('Clean Workspace')
         {
             cleanWs()
