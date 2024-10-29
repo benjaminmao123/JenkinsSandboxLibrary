@@ -8,11 +8,19 @@ def call(PipelineConfiguration config) {
     {
         properties([
             disableConcurrentBuilds(),
+
             parameters([
+                string(
+                    name: 'ItemID',
+                    trim: true,
+                    description: 'The ID of the item to be processed',
+                ),
+
                 choice(
                     name: 'BuildPriority',
                     choices: ['5', '4', '3', '2', '1'],
-                    description: 'Lower number means higher priority.')
+                    description: 'Lower number means higher priority.',
+                ),
             ])
         ])
 
