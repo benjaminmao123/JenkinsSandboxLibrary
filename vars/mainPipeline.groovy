@@ -4,6 +4,9 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
+    properties([
+    parameters([])
+    ])
     node
     {
         stage ('Build')
