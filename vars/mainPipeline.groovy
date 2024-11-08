@@ -8,7 +8,7 @@ def call(PipelineConfiguration config) {
     {
         stage ('Build')
         {
-            sleep 30
+            // sleep 30
         }
     }
 }
