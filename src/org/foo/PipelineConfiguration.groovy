@@ -1,5 +1,7 @@
 package org.foo
 
+import jenkins.model.Jenkins
+
 class PipelineConfiguration
 {
     void updateDescription(def context) {
