@@ -6,6 +6,18 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     node
     {
+        def commit = bat(returnStdout: true, script: 'git log -1 --oneline').trim()
+
+        String commitMsg = commit.substring( commit.indexOf(' ') ).trim()
+
+        echo "Commit message: ${commitMsg}"
+
+        if (commitMsg.contains('HOTFIX'))
+        {
+            echo "HOTFIX detected"
+            currentBuild.description = commitMsg
+        }
+
         stage ('Build')
         {
             // sleep 30
