@@ -16,14 +16,23 @@ def call(PipelineConfiguration config) {
 
             echo "Commit message: ${commitMsg}"
 
+            String jobDescription = ""
+            echo "Job name: ${env.JOB_NAME}"
+
             if (commitMsg.contains('HOTFIX'))
             {
                 echo "HOTFIX detected"
-                echo "Job name: ${env.JOB_NAME}"
-                final job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
-                job.setDescription('HOTFIX')
-                job.save()
+                jobDescription = "HOTFIX"
             }
+            else
+            {
+                echo "HOTFIX not detected"
+                jobDescription = "MAIN"
+            }
+
+            final job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
+            job.setDescription()
+            job.save()
         }
 
         stage ('Build')
