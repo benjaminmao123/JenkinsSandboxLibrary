@@ -19,7 +19,9 @@ def call(PipelineConfiguration config) {
             if (commitMsg.contains('HOTFIX'))
             {
                 echo "HOTFIX detected"
-                currentBuild.description = 'HOTFIX'
+                final job = Jenkins.instance.getItem(env.JOB_NAME)
+                job.setDescription('HOTFIX')
+                job.save()
             }
         }
 
