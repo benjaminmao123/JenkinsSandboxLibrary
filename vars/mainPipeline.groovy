@@ -19,7 +19,7 @@ def call(PipelineConfiguration config) {
             if (commitMsg.contains('HOTFIX'))
             {
                 echo "HOTFIX detected"
-                currentBuild.description = commitMsg
+                currentBuild.description = 'HOTFIX'
             }
         }
 
