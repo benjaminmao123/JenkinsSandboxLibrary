@@ -2,5 +2,29 @@ package org.foo
 
 class PipelineConfiguration
 {
-    String branchName
+    void updateDescription(def context) {
+        def commit = context.bat(returnStdout: true, script: 'git log -1 --oneline').trim()
+
+        String commitMsg = commit.substring( commit.indexOf(' ') ).trim()
+
+        context.echo "Commit message: ${commitMsg}"
+
+        String jobDescription = ""
+        context.echo "Job name: ${context.env.JOB_NAME}"
+
+        if (commitMsg.contains('HOTFIX'))
+        {
+            context.echo "HOTFIX detected"
+            jobDescription = "HOTFIX"
+        }
+        else
+        {
+            context.echo "HOTFIX not detected"
+            jobDescription = "MAIN"
+        }
+
+        final job = context.Jenkins.instance.getItemByFullName(context.env.JOB_NAME)
+        job.setDescription(jobDescription)
+        job.save()
+    }
 }
