@@ -31,7 +31,7 @@ def call(PipelineConfiguration config) {
             }
 
             final job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
-            job.setDescription()
+            job.setDescription(jobDescription)
             job.save()
         }
 
