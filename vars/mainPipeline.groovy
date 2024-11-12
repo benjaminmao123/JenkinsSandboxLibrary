@@ -20,9 +20,9 @@ def call(PipelineConfiguration config) {
             {
                 echo "HOTFIX detected"
                 echo "Job name: ${env.JOB_NAME}"
-                // final job = Jenkins.instance.getItemByFullName()
-                // job.setDescription('HOTFIX')
-                // job.save()
+                final job = Jenkins.instance.getItemByFullName(env.JOB_NAME)
+                job.setDescription('HOTFIX')
+                job.save()
             }
         }
 
