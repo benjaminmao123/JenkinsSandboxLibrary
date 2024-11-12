@@ -22,7 +22,6 @@ class PipelineConfiguration
         else
         {
             context.echo "HOTFIX not detected"
-            jobDescription = "MAIN"
         }
 
         final job = Jenkins.instance.getItemByFullName(context.env.JOB_NAME)
