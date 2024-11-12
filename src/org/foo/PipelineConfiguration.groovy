@@ -25,7 +25,7 @@ class PipelineConfiguration
             jobDescription = "MAIN"
         }
 
-        final job = context.Jenkins.instance.getItemByFullName(context.env.JOB_NAME)
+        final job = Jenkins.instance.getItemByFullName(context.env.JOB_NAME)
         job.setDescription(jobDescription)
         job.save()
     }
