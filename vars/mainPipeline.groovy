@@ -6,8 +6,7 @@ import jenkins.model.Jenkins
 def call(PipelineConfiguration config) {
     config.getQueueItems(this)
 
-    node
-    {
+    node {
         sleep 500
     }
 }
