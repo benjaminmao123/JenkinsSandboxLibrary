@@ -46,4 +46,11 @@ class PipelineConfiguration
             context.echo("The build queue is empty.")
         }
     }
+
+    void printJobInfo(def context) {
+        context.echo "Job name: ${context.env.JOB_NAME}"
+        context.echo "Job display name: ${context.env.JOB_DISPLAY_NAME}"
+        context.echo "Job full name: ${context.env.JOB_FULL_NAME}"
+        context.echo "Job URL: ${context.env.JOB_URL}"
+    }
 }

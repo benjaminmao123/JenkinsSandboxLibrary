@@ -4,7 +4,8 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
-    config.getQueueItems(this)
+    // config.getQueueItems(this)
+    config.printJobInfo(this)
 
     node {
         sleep 500
