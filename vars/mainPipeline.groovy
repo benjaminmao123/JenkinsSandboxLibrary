@@ -22,18 +22,6 @@ def call(PipelineConfiguration config) {
 
     node
     {
-        stage ('Checkout')
-        {
-            sleep 500
-            // checkout scm
-
-            // config.updateDescription(this)
-
-        }
-
-        stage ('Build')
-        {
-            // sleep 30
-        }
+        sleep 500
     }
 }
