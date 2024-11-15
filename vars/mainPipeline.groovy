@@ -4,9 +4,20 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
-    def q = Jenkins.instance.queue
-    q.items.each { item ->
-        println "Queue item: ${item.task.name}"
+    def queue = Jenkins.instance.queue
+    def items = queue.items // Retrieve all items in the queue
+
+    if (items.length > 0) {
+        println("Jobs in the queue:")
+        items.each { item ->
+            def jobName = item.task.name // Extract serializable data
+
+            // Print the extracted data
+            println("Job Name: ${jobName}")
+        }
+    } 
+    else {
+        println("The build queue is empty.")
     }
 
     node
