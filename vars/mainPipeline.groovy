@@ -21,6 +21,7 @@ def call(PipelineConfiguration config) {
     }
 
     queue = null // Release the queue object
+    items = null // Release the items object
 
     node
     {
