@@ -5,6 +5,7 @@ import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
     def queue = Jenkins.instance.queue
+    queue = null
     // def items = queue.items // Retrieve all items in the queue
 
     // if (items.length > 0) {
