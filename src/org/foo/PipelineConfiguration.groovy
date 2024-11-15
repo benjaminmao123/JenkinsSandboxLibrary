@@ -28,4 +28,22 @@ class PipelineConfiguration
         job.setDescription(jobDescription)
         job.save()
     }
+
+    void getQueueItems(def context) {
+        def queue = Jenkins.instance.queue
+        def items = queue.items // Retrieve all items in the queue
+
+        if (items.length > 0) {
+            context.echo("Jobs in the queue:")
+            items.each { item ->
+                def jobName = item.task.name // Extract serializable data
+
+                // Print the extracted data
+                context.echo("Job Name: ${jobName}")
+            }
+        } 
+        else {
+            context.echo("The build queue is empty.")
+        }
+    }
 }
