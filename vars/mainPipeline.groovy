@@ -4,8 +4,6 @@ import hudson.model.StringParameterDefinition
 import jenkins.model.Jenkins
 
 def call(PipelineConfiguration config) {
-    properties([])
-
     def q = Jenkins.instance.queue
     q.items.each { item ->
         println "Queue item: ${item.task.name}"
